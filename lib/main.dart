@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scanner/pages/home.page.dart';
+import 'package:scanner/pages/importer.page.dart';
 import 'package:scanner/pages/scanner.page.dart';
 
 void main()=>runApp(MyApp());
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/": (context)=>Home(),
         "/scanner" : (context)=>Scanner(),
+        "/importer" : (context)=>Importer(),
       },
     );
   }

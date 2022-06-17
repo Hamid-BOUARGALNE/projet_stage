@@ -7,7 +7,7 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("scanner"),
+        appBar: AppBar(title: Text("My Scanner"),
           centerTitle: true,
         ),
 
@@ -22,7 +22,9 @@ class Home extends StatelessWidget {
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 child: InkWell(
                   splashColor: Colors.black26,
-                  onTap: (){},
+                  onTap: (){
+                    Navigator.pushNamed(context, "/scanner");
+                  },
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -46,7 +48,9 @@ class Home extends StatelessWidget {
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 child: InkWell(
                   splashColor: Colors.black26,
-                  onTap: (){},
+                  onTap: (){
+                    Navigator.pushNamed(context, "/importer");
+                  },
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
