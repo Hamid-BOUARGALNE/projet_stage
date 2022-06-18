@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:scanner/main.dart';
 import 'package:barcode_widget/barcode_widget.dart';
