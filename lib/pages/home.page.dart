@@ -1,13 +1,24 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:scanner/main.dart';
+import 'package:barcode_widget/barcode_widget.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
-class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  @override
+  State<Home> createState() => _HomeState();
+
+}
+
+class _HomeState extends State<Home> {
+  String valueScan="";
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("My Scanner"),
+        appBar: AppBar(title: Text("Thalès Scanner "),
           centerTitle: true,
         ),
 
@@ -23,7 +34,9 @@ class Home extends StatelessWidget {
                 child: InkWell(
                   splashColor: Colors.black26,
                   onTap: (){
-                    Navigator.pushNamed(context, "/scanner");
+                    ScanMe();
+                    VerifierBarCode(valueScan);
+                    //Navigator.pushNamed(context, "/scanner");
                   },
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -71,5 +84,31 @@ class Home extends StatelessWidget {
           )
         ),
     );
+
   }
+  void VerifierBarCode( String value){
+
+  }
+  Future<void> ScanMe  () async{
+    print("hi");
+      try{
+        String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+            "#2A99CF",
+            "cancel",
+            true,
+            ScanMode.BARCODE).then((value){
+              print(value);
+               setState((){
+                valueScan=value;
+              });
+              FutureOr<String> f="";
+               return f;
+            });
+      }catch(e){
+        print(e);
+        rethrow;
+      };
+  }
+
 }
+
