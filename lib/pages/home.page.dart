@@ -1,8 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:scanner/main.dart';
-import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'dart:io';
 
 class Home extends StatefulWidget {
   @override
@@ -61,7 +60,7 @@ class _HomeState extends State<Home> {
                 child: InkWell(
                   splashColor: Colors.black26,
                   onTap: (){
-                    Navigator.pushNamed(context, "/importer");
+                    //Navigator.pushNamed(context, "/importer");
                   },
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -86,7 +85,12 @@ class _HomeState extends State<Home> {
 
   }
   void VerifierBarCode( String value){
+    var myFile = File('file.txt');
+    var sink = myFile.openWrite();
+    sink.write('FILE ACCESSED ${DateTime.now()}\n');
 
+    // Close the IOSink to free system resources.
+    sink.close();
   }
   Future<void> ScanMe  () async{
     print("hi");
