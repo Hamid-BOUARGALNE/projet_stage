@@ -30,7 +30,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Thalès Scanner => $s"),
+        appBar: AppBar(title: Text("Thalès Scanner"),
           centerTitle: true,
         ),
 
@@ -38,6 +38,7 @@ class _HomeState extends State<Home> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              Text(s),
               Material(
                 color: Colors.orange,
                 elevation: 8,
@@ -47,7 +48,7 @@ class _HomeState extends State<Home> {
                   splashColor: Colors.black26,
                   onTap: (){
                     scanMe();
-                      _writeFile(valueScan);
+                    (valueScan !="")?_writeFile(valueScan):valueScan;
 
                     //Navigator.pushNamed(context, "/scanner");
                   },
