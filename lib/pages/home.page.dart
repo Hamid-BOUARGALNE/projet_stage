@@ -1,22 +1,36 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:scanner/widget/CounterStorage.widget.dart';
 import 'dart:io';
-
+ 
 class Home extends StatefulWidget {
+  const Home({super.key, required this.storage});
   @override
   State<Home> createState() => _HomeState();
-
+  final CounterStorage storage;
 }
 
 class _HomeState extends State<Home> {
   String valueScan="";
+  String s="";
+  void _readFile() {
+    widget.storage.readCounter().then((value) {
+       setState(() {
+         s = value;
+      });
+    });
+  }
 
+  Future<File> _writeFile(String value) {
+    // Write the variable as a string to the file.
+    return widget.storage.writeCounter(value);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text("Thalès Scanner "),
+        appBar: AppBar(title: Text("Thalès Scanner => $s"),
           centerTitle: true,
         ),
 
@@ -32,8 +46,9 @@ class _HomeState extends State<Home> {
                 child: InkWell(
                   splashColor: Colors.black26,
                   onTap: (){
-                    ScanMe();
-                    VerifierBarCode(valueScan);
+                    scanMe();
+                      _writeFile(valueScan);
+
                     //Navigator.pushNamed(context, "/scanner");
                   },
                   child: Column(
@@ -60,6 +75,7 @@ class _HomeState extends State<Home> {
                 child: InkWell(
                   splashColor: Colors.black26,
                   onTap: (){
+                    _readFile();
                     //Navigator.pushNamed(context, "/importer");
                   },
                   child: Column(
@@ -84,33 +100,26 @@ class _HomeState extends State<Home> {
     );
 
   }
-  void VerifierBarCode( String value){
-    var myFile = File('file.txt');
-    var sink = myFile.openWrite();
-    sink.write('FILE ACCESSED ${DateTime.now()}\n');
 
-    // Close the IOSink to free system resources.
-    sink.close();
-  }
-  Future<void> ScanMe  () async{
-    print("hi");
+  Future<void> scanMe  () async{
       try{
-        String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+       await FlutterBarcodeScanner.scanBarcode(
             "#2A99CF",
             "cancel",
             true,
             ScanMode.BARCODE).then((value){
-              print(value);
                setState((){
                 valueScan=value;
               });
+
+
               FutureOr<String> f="";
                return f;
             });
+
       }catch(e){
-        print(e);
         rethrow;
-      };
+      }
   }
 
 }
